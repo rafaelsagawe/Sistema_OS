@@ -2,7 +2,7 @@
 
 O sistema será feito com base através do curso de Java com Banco de Dados do portal AulaEAD, mas o ambiente de desenvolvimento será o Ubuntu 18.04 no lugar do Windows.
 
-## *Instalação dos programas
+## _Instalação dos programas
   sudo apt install mysql-server mysql-workbench mysql-workbench-data 
   
   O Netbeans foi instalado através do pacote .deb obtido do site do Netbeans.
@@ -22,3 +22,6 @@ mysql> FLUSH PRIVILEGES; # *atualiza os privilegias
 ### Deletar usuário do Mysql 
 mysql> DROP USER 'sistema-os'@'localhost'
 
+# Bibliografia
+Configurações do Mysql
+https://www.digitalocean.com/community/tutorials/como-criar-um-novo-usuario-e-conceder-permissoes-no-mysql-pt
