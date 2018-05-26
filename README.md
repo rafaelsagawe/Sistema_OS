@@ -13,11 +13,12 @@ sudo mysql -u root # para acessar o mysql
 
 mysql> SELECT User, Host, plugin FROM mysql.user; # para verificar os usuários do mysql
 
-mysql> CREATE USER 'sistema-os'@'localhost' IDENTIFIED BY''; # *cria usuário para o sistema de OS's
+mysql> CREATE USER 'sistema'@'localhost' IDENTIFIED BY'sistema'; # *cria usuário para o sistema de OS's
 
-mysql> GREAT ALL PRIVILEGES ON *.* TO 'sistema-os'@'localhost'; # *dá todos os privilégios ao usuário sistema-os
-
-mysql> UPDATE user SET plugin='auth_socket' WHERE User= 'sistema-os'; # *atualiza o plugin de autenticação
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'sistema'@'localhost'; # *dá todos os privilégios ao usuário sistema-os
 
 mysql> FLUSH PRIVILEGES; # *atualiza os privilegias
+
+## Deletar usuário do Mysql 
+mysql> DROP USER 'sistema-os'@'localhost'
 
