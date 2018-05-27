@@ -5,7 +5,6 @@ create database db_sistema_os;
 use db_sistema_os;
 
 -- Criação da tabela de usuários
-
 create table tb_usuario(
 id_user int primary key,
 usuario varchar(50) not null,
@@ -15,20 +14,16 @@ senha varchar(15) not null
 );
 
 -- Descrição da tabela
-
 describe tb_usuario;
 
 -- Dados de teste
-
 insert into tb_usuario (id_user, usuario, fone, login, senha)
 value (1, 'Rafael Sagawe', '98745-6321', 'rafael', '123');
 
 -- verificar dados inseridos
-
 select * from tb_usuario;
 
 -- outros usuários
-
 insert into tb_usuario (id_user, usuario, fone, login, senha)
 value 
 (2, 'Administrador', '000-000', 'admin', '123'),
@@ -36,9 +31,27 @@ value
 (4, 'Atendente', '000-000', 'atende', '123');
 
 -- alterar item da tabela
-
 update tb_usuario set fone='8888-4444' where id_user=2;
 
 -- Apagar registro
-
 delete from tb_usuario where id_user=1;
+
+-- cadastro de clientes
+create table tb_cliente(
+id_cliente int primary key auto_increment,
+nome_cliente varchar(50) not null,
+end_cliente varchar(100),
+fone_cliente varchar(15) not null,
+email_cliente varchar(50)
+);
+
+-- Descrição da tabela criada
+describe tb_cliente;
+
+-- Inserindo clientes
+insert into tb_cliente(nome_cliente, end_cliente, fone_cliente, email_cliente)
+values
+('Blil Gates', 'Rua MS', '95-98-7-8-10', 'bill@ms.com'),
+('Linus Torvald', 'Rua Tux', '0.2', 'linux@kernel.com');
+
+-- Verificar tabela cliente
