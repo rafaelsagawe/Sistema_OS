@@ -82,5 +82,12 @@ values
 
 select * from tb_os;
 
+-- União das tabelas para criação do relatorio das ordens de serviços
+select
+O.id_os, equipamentos, defeito, servico, tecnico, valor,
+C.nome_cliente, end_cliente, fone_cliente, email_cliente
+from tb_os as O
+inner join tb_cliente as C
+on O.id_cliente=C.id_cliente;
 
 
