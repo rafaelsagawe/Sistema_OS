@@ -70,3 +70,17 @@ valor decimal(10,2),
 id_cliente int not null,
 foreign key(id_cliente) references tb_cliente(id_cliente)
 );
+
+describe tb_os;
+
+-- Dados de teste
+insert into tb_os (equipamentos, defeito, servico, tecnico, valor, id_cliente)
+values
+("Computador", "Não Liga", "Toca da fonte", "Zé" , 50.8, 2),
+("Notebook", "Não Liga", "Toca da fonte", "João" , 50.8, 2),
+("Computador", "Tela azul", "Formatação", "Zé" , 75, 2);
+
+select * from tb_os;
+
+
+
