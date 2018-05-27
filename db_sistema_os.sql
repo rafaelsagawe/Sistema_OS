@@ -55,3 +55,18 @@ values
 ('Linus Torvald', 'Rua Tux', '0.2', 'linux@kernel.com');
 
 -- Verificar tabela cliente
+select * from tb_cliente;
+
+-- Tabela de ordem de serviço 
+
+create table tb_os(
+id_os int primary key auto_increment,
+data_os timestamp default current_timestamp, -- dada e hora gerada automaticamente
+equipamentos varchar(150) not null,
+defeito varchar(150) not null,
+servico varchar(150),
+tecnico varchar(30),
+valor decimal(10,2),
+id_cliente int not null,
+foreign key(id_cliente) references tb_cliente(id_cliente)
+);
