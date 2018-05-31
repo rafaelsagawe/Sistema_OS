@@ -1,11 +1,11 @@
-# Sistema de Ordem de Serviços
+﻿# Sistema de Ordem de Serviços
 
 O sistema será feito com base através do curso de Java com Banco de Dados do portal AulaEAD, mas o ambiente de desenvolvimento será o Ubuntu 18.04 no lugar do Windows.
 
-## _Instalação dos programas
+## Instalação dos programas
   sudo apt install mysql-server mysql-workbench mysql-workbench-data 
   
-  O Netbeans foi instalado através do pacote .deb obtido do site do Netbeans, mas ele esta apresentando um bug na versão 8.2 quanto ao JDK9, assim foi necessario reinstala-lo usando a outra JDK8.
+  O Netbeans foi instalado através do pacote .deb obtido do site do Netbeans, mas ele está apresentando um bug na versão 8.2 quanto ao JDK9, assim foi necessário reinstalá-lo usando a outra JDK8.
   
   sudo add-apt-repository ppa:webupd8team/java
   sudo apt-get install oracle-java8-installer
