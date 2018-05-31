@@ -90,4 +90,5 @@ from tb_os as O
 inner join tb_cliente as C
 on O.id_cliente=C.id_cliente;
 
+select * from tb_usuario where login='admin' and senha='123';
 
