@@ -106,3 +106,8 @@ alter table tb_usuario drop column perfil;
 update tb_usuario set perfil='admin' where id_user=1;
 update tb_usuario set perfil='normal' where id_user=2;
 update tb_usuario set perfil='normal' where id_user=3;
+
+-- Teste para a criação do formulario de usuário
+describe tb_usuario; -- descrição da tabela
+select * from tb_usuario; -- seleção de todos os usuários
+select * from tb_usuario where id_user=1; -- seleciona apanas o usuário com id 1

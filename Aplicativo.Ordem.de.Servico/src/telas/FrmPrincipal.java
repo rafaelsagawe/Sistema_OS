@@ -164,7 +164,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mnCadUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnCadUserActionPerformed
-        // TODO add your handling code here:
+        // Essas linhas abrem o cadastro de usuário no painel 
+        IntFrmUsuario usuario = new IntFrmUsuario();
+        usuario.setVisible(true);
+        Desktop.add(usuario);
     }//GEN-LAST:event_mnCadUserActionPerformed
 
     private void mnRelSerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnRelSerActionPerformed
