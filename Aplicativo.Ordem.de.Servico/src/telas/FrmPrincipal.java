@@ -7,6 +7,7 @@ package telas;
 
 import java.text.DateFormat;
 import java.util.Date;
+import javax.security.auth.spi.LoginModule;
 import javax.swing.JOptionPane;
 
 /**
@@ -59,7 +60,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         Desktop.setLayout(DesktopLayout);
         DesktopLayout.setHorizontalGroup(
             DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 551, Short.MAX_VALUE)
+            .addGap(0, 490, Short.MAX_VALUE)
         );
         DesktopLayout.setVerticalGroup(
             DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,7 +122,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         mnOp.setText("Opções");
 
-        mnSair.setText("Sair");
+        mnSair.setText("Sair do Sistema");
         mnSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnSairActionPerformed(evt);
@@ -137,25 +138,25 @@ public class FrmPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(Desktop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(Desktop)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(lblData)
                     .addComponent(lblUsuario)
-                    .addComponent(lblData))
-                .addGap(0, 4, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(Desktop)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addComponent(lblUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblData)
-                .addGap(0, 300, Short.MAX_VALUE))
+                .addGap(0, 179, Short.MAX_VALUE))
         );
 
         pack();
@@ -182,7 +183,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
         int sair = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja sair", "Atenção",JOptionPane.YES_NO_OPTION);
         // Se jOptionPane for yes ele ira fechar o sistema
         if (sair == JOptionPane.YES_OPTION) {
-            System.exit(0);
+            // chama tela login
+            FrmLogin login = new FrmLogin();
+            login.setVisible(true);
+            this.dispose();
         }
         
     }//GEN-LAST:event_mnSairActionPerformed
@@ -233,7 +237,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar MenuBar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblData;
-    private javax.swing.JLabel lblUsuario;
+    public static javax.swing.JLabel lblUsuario;
     private javax.swing.JMenu mnAjuda;
     private javax.swing.JMenuItem mnAjudaSobre;
     private javax.swing.JMenu mnCad;

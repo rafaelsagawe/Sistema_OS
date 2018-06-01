@@ -31,12 +31,28 @@ public class FrmLogin extends javax.swing.JFrame {
             rs = pst.executeQuery(); // Execulta o SQL
             // ser existir usuario e senha correspondente
             if (rs.next()) {
-                FrmPrincipal principal = new FrmPrincipal(); // Cria o objeto
-                principal.setVisible(true); // Torna o objeto visivel
+                String perfil = rs.getString(6);// compo com o perfil do usuário
+                // System.out.println(perfil); // Apoio de desenvolvimento
+                // Estrutura de tratamento do perfil do usuário
                 
-                
-                this.setVisible(false); // oculta a tela de login ao logar
-                conexao.close(); // Fecha o acesso do banco de dados
+                   if (perfil.equals("admin") ) { // Se usuário tem perfil de admin libera funções para cadastrar usuários e ver relatorios
+                    FrmPrincipal principal = new FrmPrincipal(); // Cria o objeto
+                    principal.setVisible(true); // Torna o objeto visivel
+                    FrmPrincipal.mnRelSer.setEnabled(true); // Habilita o menu de relatorio
+                    FrmPrincipal.mnCadUser.setEnabled(true); // Habilita o menu cadastro de usuário
+                    FrmPrincipal.lblUsuario.setText(rs.getString(2)); // Captura o nome do usuário e lança no na janela principal do sistema
+                    FrmPrincipal.lblUsuario.setForeground(Color.red); // Coloca o nome do usuário em vermelho
+                    this.dispose(); // Fecha a tela de login ao logar
+                    conexao.close(); // Fecha o acesso do banco de dados
+                }else{ // Se usuário não tem perfil de admin 
+                    FrmPrincipal principal = new FrmPrincipal(); // Cria o objeto
+                    principal.setVisible(true); // Torna o objeto visivel
+                    this.dispose(); // Fecha a tela de login ao logar
+                    FrmPrincipal.lblUsuario.setText(rs.getString(2)); // Captura o nome do usuário e lança no na janela principal do sistema
+                    FrmPrincipal.lblUsuario.setForeground(Color.GREEN); // Coloca o nome do usuário em verde
+                    conexao.close(); // Fecha o acesso do banco de dados
+
+                }
             }else{
                 JOptionPane.showMessageDialog(null, "Usuário e/ou senha inválido(0)");
             }
@@ -58,9 +74,11 @@ public class FrmLogin extends javax.swing.JFrame {
             
             // trocando texto por imagem
             //lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Aplicativo.Odem.de.Servico/icones/up.png")));
-        }else
-            lblStatus.setText("Não conectado");
+        }else{
+            
             lblStatus.setForeground(Color.red);
+        lblStatus.setText("Não conectado");
+        }
         //lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Aplicativo.Odem.de.Servico/icones/down.png")));
     }
 

@@ -90,5 +90,19 @@ from tb_os as O
 inner join tb_cliente as C
 on O.id_cliente=C.id_cliente;
 
+-- teste da função de login
 select * from tb_usuario where login='admin' and senha='123';
 
+-- Adição do campo perfil do usuario
+alter table tb_usuario add column perfil varchar(20) not null;
+
+-- verificar se foi criada a coluna
+describe tb_usuario;
+
+-- para deletar a coluna
+alter table tb_usuario drop column perfil;
+
+-- atualizar usuários existente
+update tb_usuario set perfil='admin' where id_user=1;
+update tb_usuario set perfil='normal' where id_user=2;
+update tb_usuario set perfil='normal' where id_user=3;
