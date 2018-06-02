@@ -76,7 +76,7 @@ public class IntFrmUsuario extends javax.swing.JInternalFrame {
 
             // Validação dos campos obrigatorios
             if (((((txtUseId.getText().isEmpty()) || (txtUseNome.getText().isEmpty())) || ((txtUseLogin.getText().isEmpty()))) || ((txtUseSenha.getText().isEmpty())))){
-                JOptionPane.showMessageDialog(null, "Erro");
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos vermelhos.");
             } else {
                 // Atualiza a tabela de usaurios com os dados do formulario
                 // Estrutura para enviar uma mensagem de confirmação de cadastro
@@ -84,7 +84,7 @@ public class IntFrmUsuario extends javax.swing.JInternalFrame {
                 // Linha de teste para o terminal o valor retornado deve ser 1, que significa a entrada de uma linha
                 System.out.println(adicionado); 
                 if (adicionado > 0) {
-                    JOptionPane.showMessageDialog(null, "Usuário adicionado com sucesso");
+                    JOptionPane.showMessageDialog(null, "Usuário adicionado com sucesso.");
                     txtUseId.setText(null);
                     txtUseNome.setText(null);
                     txtUseFone.setText(null);
@@ -94,7 +94,7 @@ public class IntFrmUsuario extends javax.swing.JInternalFrame {
                 }
             }
         } catch (Exception e) {
-           // JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+           JOptionPane.showMessageDialog(null, e);
         }
     }
 
@@ -146,17 +146,7 @@ public class IntFrmUsuario extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Fone");
 
-        txtUseId.setText(" ");
-
-        txtUseNome.setText(" ");
-
-        txtUseLogin.setText(" ");
-
-        txtUseSenha.setText(" ");
-
         cmbUsePerfil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Normal" }));
-
-        txtUseFone.setText(" ");
 
         btnUseAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/create.png"))); // NOI18N
         btnUseAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));

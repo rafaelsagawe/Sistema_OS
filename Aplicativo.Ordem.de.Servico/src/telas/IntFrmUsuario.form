@@ -149,24 +149,12 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtUseId">
-      <Properties>
-        <Property name="text" type="java.lang.String" value=" "/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtUseNome">
-      <Properties>
-        <Property name="text" type="java.lang.String" value=" "/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtUseLogin">
-      <Properties>
-        <Property name="text" type="java.lang.String" value=" "/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtUseSenha">
-      <Properties>
-        <Property name="text" type="java.lang.String" value=" "/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="cmbUsePerfil">
       <Properties>
@@ -182,9 +170,6 @@
       </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="txtUseFone">
-      <Properties>
-        <Property name="text" type="java.lang.String" value=" "/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnUseAdd">
       <Properties>
