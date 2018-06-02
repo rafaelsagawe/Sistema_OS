@@ -4,42 +4,42 @@
  * and open the template in the editor.
  */
 package telas;
+
 import java.sql.*;
 import DAO.Conexao;
 import javax.swing.JOptionPane;
 
-    // Frameworks dentro do java.sql
-
-
-
+// Frameworks dentro do java.sql
 /**
  *
  * @author rafael
  */
 public class IntFrmUsuario extends javax.swing.JInternalFrame {
+
     // Variaveis de acesso ao banco de dados
     Connection conexao = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
-    
+
     /**
      * Creates new form IntFrmUsuario
      */
-    
     // Construtos da janela
     public IntFrmUsuario() {
         initComponents();
         conexao = Conexao.conector();
 
     }
-    private void consultar(){
+    // metodo de consulta de usuário
+
+    private void consultar() {
         String sql = "select * from tb_usuario where id_user=?";
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, txtUseId.getText());
-            rs=pst.executeQuery();
+            rs = pst.executeQuery();
             // Se existe usuário 
-            
+
             if (rs.next()) {
                 txtUseNome.setText(rs.getString(2));
                 txtUseFone.setText(rs.getString(3));
@@ -54,13 +54,50 @@ public class IntFrmUsuario extends javax.swing.JInternalFrame {
                 txtUseFone.setText(null);
                 txtUseLogin.setText(null);
                 txtUseSenha.setText(null);
-                cmbUsePerfil.setSelectedItem(null);
+                //cmbUsePerfil.setSelectedItem(null);
 
             }
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
         }
-}
+    }
+
+    // metodo de adição de usuário
+    private void adicionar() {
+        String sql = "insert into tb_usuario (id_user, usuario, fone, login, senha, perfil) values(?, ?, ?, ?, ?, ?)";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, txtUseId.getText());
+            pst.setString(2, txtUseNome.getText());
+            pst.setString(3, txtUseFone.getText());
+            pst.setString(4, txtUseLogin.getText());
+            pst.setString(5, txtUseSenha.getText());
+            pst.setString(6, cmbUsePerfil.getSelectedItem().toString()); // Essa linha precisa ser convertido para Strindo assim e usado o .toString
+
+            // Validação dos campos obrigatorios
+            if (((((txtUseId.getText().isEmpty()) || (txtUseNome.getText().isEmpty())) || ((txtUseLogin.getText().isEmpty()))) || ((txtUseSenha.getText().isEmpty())))){
+                JOptionPane.showMessageDialog(null, "Erro");
+            } else {
+                // Atualiza a tabela de usaurios com os dados do formulario
+                // Estrutura para enviar uma mensagem de confirmação de cadastro
+                int adicionado = pst.executeUpdate();
+                // Linha de teste para o terminal o valor retornado deve ser 1, que significa a entrada de uma linha
+                System.out.println(adicionado); 
+                if (adicionado > 0) {
+                    JOptionPane.showMessageDialog(null, "Usuário adicionado com sucesso");
+                    txtUseId.setText(null);
+                    txtUseNome.setText(null);
+                    txtUseFone.setText(null);
+                    txtUseLogin.setText(null);
+                    txtUseSenha.setText(null);
+                   // cmbUsePerfil.setSelectedItem(null);
+                }
+            }
+        } catch (Exception e) {
+           // JOptionPane.showMessageDialog(null, "Preencha todos os campos");
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -95,12 +132,16 @@ public class IntFrmUsuario extends javax.swing.JInternalFrame {
 
         jLabel1.setText("ID");
 
+        jLabel2.setForeground(new java.awt.Color(255, 0, 0));
         jLabel2.setText("Nome");
 
+        jLabel3.setForeground(new java.awt.Color(255, 0, 0));
         jLabel3.setText("Login");
 
+        jLabel4.setForeground(new java.awt.Color(255, 0, 0));
         jLabel4.setText("Senha");
 
+        jLabel5.setForeground(new java.awt.Color(255, 0, 0));
         jLabel5.setText("Perfil");
 
         jLabel6.setText("Fone");
@@ -120,6 +161,11 @@ public class IntFrmUsuario extends javax.swing.JInternalFrame {
         btnUseAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/create.png"))); // NOI18N
         btnUseAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUseAdd.setPreferredSize(new java.awt.Dimension(30, 30));
+        btnUseAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUseAddActionPerformed(evt);
+            }
+        });
 
         btnUseRead.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/read.png"))); // NOI18N
         btnUseRead.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -211,9 +257,14 @@ public class IntFrmUsuario extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUseReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUseReadActionPerformed
-        //Realizando a cunsulta
+        //Realizando a consulta
         consultar();
     }//GEN-LAST:event_btnUseReadActionPerformed
+
+    private void btnUseAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUseAddActionPerformed
+        // realiza a adição do usuario
+        adicionar();
+    }//GEN-LAST:event_btnUseAddActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
