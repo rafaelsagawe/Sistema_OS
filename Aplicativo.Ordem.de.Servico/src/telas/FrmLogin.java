@@ -126,7 +126,7 @@ public class FrmLogin extends javax.swing.JFrame {
         TxtUsuario.setBackground(java.awt.SystemColor.control);
         TxtUsuario.setToolTipText("Nome do Usuário");
         TxtUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder("Usuário"));
-        TxtUsuario.setSelectionColor(new java.awt.Color(255, 0, 102));
+        TxtUsuario.setSelectionColor(new java.awt.Color(0, 0, 0));
         TxtUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TxtUsuarioActionPerformed(evt);
@@ -134,9 +134,10 @@ public class FrmLogin extends javax.swing.JFrame {
         });
 
         PwdSenha.setBackground(java.awt.SystemColor.control);
+        PwdSenha.setForeground(java.awt.Color.lightGray);
         PwdSenha.setToolTipText("Digite sua senha");
         PwdSenha.setBorder(javax.swing.BorderFactory.createTitledBorder("Senha"));
-        PwdSenha.setSelectionColor(new java.awt.Color(255, 0, 102));
+        PwdSenha.setSelectionColor(new java.awt.Color(0, 0, 0));
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/img-home2.png"))); // NOI18N
