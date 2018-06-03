@@ -11,7 +11,10 @@ package telas;
  */
 import java.sql.*;
 import DAO.Conexao;
+import java.util.Arrays;
 import javax.swing.JOptionPane;
+// Linhas que importa recursos da biblioteca rsxml.jar
+import net.proteanit.sql.DbUtils;
 
 public class IntFrmCliente extends javax.swing.JInternalFrame {
 
@@ -58,6 +61,34 @@ public class IntFrmCliente extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+    }
+
+    // metodo de pesquisa inteligente
+    private void pesquisarCliente() {
+        String sql = "select * from tb_cliente where nome_cliente like ?";
+        try {
+            pst = conexao.prepareStatement(sql);
+            // Passando o conteudo da caixa de pesquisa para o ?
+            // Necessita da concatenação da instrução "%" para o sql 
+            pst.setString(1, txtCliBusca.getText() + "%");
+            rs = pst.executeQuery();
+            // Linha que usa o rs2xml adicionado na biblioteca
+            tblClientes.setModel(DbUtils.resultSetToTableModel(rs));
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+    // Metodo para setar os campos com o conteudo da tabela
+    public void setarCampos() {
+        int[] setar;
+        setar = tblClientes.getSelectedRows();
+        txtCliNome.setText(tblClientes.getModel().getValueAt(setar, 1).toString());
+        txtCliEnd.setText(tblClientes.getModel().getValueAt(setar, 2).toString());
+        txtCliFone.setText(tblClientes.getModel().getValueAt(setar, 3).toString());
+        txtCliEmail.setText(tblClientes.getModel().getValueAt(setar, 4).toString());
+
     }
 
     /**
@@ -164,6 +195,11 @@ public class IntFrmCliente extends javax.swing.JInternalFrame {
                 txtCliBuscaActionPerformed(evt);
             }
         });
+        txtCliBusca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCliBuscaKeyReleased(evt);
+            }
+        });
 
         tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -176,6 +212,11 @@ public class IntFrmCliente extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblClientesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblClientes);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -245,6 +286,16 @@ public class IntFrmCliente extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         adicionar();
     }//GEN-LAST:event_btnCliAddActionPerformed
+
+    private void txtCliBuscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCliBuscaKeyReleased
+        // Busca intelegente, vai pesquisando enquanto digita
+        pesquisarCliente();
+    }//GEN-LAST:event_txtCliBuscaKeyReleased
+
+    private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseClicked
+        // evento para setar os campos 
+        setarCampos();
+    }//GEN-LAST:event_tblClientesMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
