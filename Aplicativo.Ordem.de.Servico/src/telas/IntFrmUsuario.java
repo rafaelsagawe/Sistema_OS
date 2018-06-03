@@ -30,8 +30,15 @@ public class IntFrmUsuario extends javax.swing.JInternalFrame {
         conexao = Conexao.conector();
 
     }
+    /**
+    * Os metodos criados abaixo fazem parte do GRUD do formulario de usurario
+    * G
+    * R
+    * U
+    * D
+    */
+    
     // metodo de consulta de usuário
-
     private void consultar() {
         String sql = "select * from tb_usuario where id_user=?";
         try {
@@ -75,14 +82,14 @@ public class IntFrmUsuario extends javax.swing.JInternalFrame {
             pst.setString(6, cmbUsePerfil.getSelectedItem().toString()); // Essa linha precisa ser convertido para Strindo assim e usado o .toString
 
             // Validação dos campos obrigatorios
-            if (((((txtUseId.getText().isEmpty()) || (txtUseNome.getText().isEmpty())) || ((txtUseLogin.getText().isEmpty()))) || ((txtUseSenha.getText().isEmpty())))){
+            if (((((txtUseId.getText().isEmpty()) || (txtUseNome.getText().isEmpty())) || ((txtUseLogin.getText().isEmpty()))) || ((txtUseSenha.getText().isEmpty())))) {
                 JOptionPane.showMessageDialog(null, "Preencha todos os campos vermelhos.");
             } else {
                 // Atualiza a tabela de usaurios com os dados do formulario
                 // Estrutura para enviar uma mensagem de confirmação de cadastro
                 int adicionado = pst.executeUpdate();
                 // Linha de teste para o terminal o valor retornado deve ser 1, que significa a entrada de uma linha
-                System.out.println(adicionado); 
+                System.out.println(adicionado);
                 if (adicionado > 0) {
                     JOptionPane.showMessageDialog(null, "Usuário adicionado com sucesso.");
                     txtUseId.setText(null);
@@ -90,14 +97,75 @@ public class IntFrmUsuario extends javax.swing.JInternalFrame {
                     txtUseFone.setText(null);
                     txtUseLogin.setText(null);
                     txtUseSenha.setText(null);
-                   // cmbUsePerfil.setSelectedItem(null);
+                    // cmbUsePerfil.setSelectedItem(null);
                 }
             }
         } catch (Exception e) {
-           JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, e);
         }
     }
 
+    // metodo alterar dados do usuário
+    private void alterar() {
+        String sql = "update tb_usuario set usuario=?, fone=?, login=?, senha=?, perfil=? where id_user=?";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, txtUseNome.getText());
+            pst.setString(2, txtUseFone.getText());
+            pst.setString(3, txtUseLogin.getText());
+            pst.setString(4, txtUseSenha.getText());
+            pst.setString(5, cmbUsePerfil.getSelectedItem().toString());
+            pst.setString(6, txtUseId.getText());
+
+            if (((((txtUseId.getText().isEmpty()) || (txtUseNome.getText().isEmpty())) || ((txtUseLogin.getText().isEmpty()))) || ((txtUseSenha.getText().isEmpty())))) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos vermelhos.");
+            } else {
+                // Atualiza a tabela de usaurios com os dados do formulario
+                // Estrutura para enviar uma mensagem de confirmação de cadastro
+                int adicionado = pst.executeUpdate();
+                // Linha de teste para o terminal o valor retornado deve ser 1, que significa a entrada de uma linha
+                System.out.println(adicionado);
+                if (adicionado > 0) {
+                    JOptionPane.showMessageDialog(null, "Usuário alterado com sucesso.");
+                    txtUseId.setText(null);
+                    txtUseNome.setText(null);
+                    txtUseFone.setText(null);
+                    txtUseLogin.setText(null);
+                    txtUseSenha.setText(null);
+                    // cmbUsePerfil.setSelectedItem(null);
+                }
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+    // metodo de remoção de usuário
+    private void remover(){
+        // Estrutura de confirmação de remoção
+        int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover este usuário?", "Atenção" ,JOptionPane.YES_NO_OPTION);
+        if (confirma == JOptionPane.YES_OPTION) {
+            String sql = "DELETE FROM tb_usuario WHERE id_user=? ";
+            try {
+                pst = conexao.prepareStatement(sql);
+                pst.setString(1, txtUseId.getText());
+                int apagado = pst.executeUpdate();
+                if (apagado > 0 ){
+                    JOptionPane.showMessageDialog(null, "Usuáriuo removido");
+                    txtUseId.setText(null);
+                    txtUseNome.setText(null);
+                    txtUseFone.setText(null);
+                    txtUseLogin.setText(null);
+                    txtUseSenha.setText(null);
+                }
+                    
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        } 
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -119,15 +187,21 @@ public class IntFrmUsuario extends javax.swing.JInternalFrame {
         txtUseSenha = new javax.swing.JTextField();
         cmbUsePerfil = new javax.swing.JComboBox<>();
         txtUseFone = new javax.swing.JTextField();
+        jToolBar1 = new javax.swing.JToolBar();
+        btnAnterior = new javax.swing.JButton();
+        jSeparator4 = new javax.swing.JToolBar.Separator();
         btnUseAdd = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JToolBar.Separator();
         btnUseRead = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JToolBar.Separator();
         btnUseUpdate = new javax.swing.JButton();
+        jSeparator3 = new javax.swing.JToolBar.Separator();
         btnUseDelete = new javax.swing.JButton();
+        jSeparator5 = new javax.swing.JToolBar.Separator();
+        btnProximo = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
-        setMaximizable(true);
-        setResizable(true);
         setTitle("Usuários");
 
         jLabel1.setText("ID");
@@ -148,6 +222,16 @@ public class IntFrmUsuario extends javax.swing.JInternalFrame {
 
         cmbUsePerfil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Normal" }));
 
+        jToolBar1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jToolBar1.setFloatable(false);
+
+        btnAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/Previous.png"))); // NOI18N
+        btnAnterior.setFocusable(false);
+        btnAnterior.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnAnterior.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(btnAnterior);
+        jToolBar1.add(jSeparator4);
+
         btnUseAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/create.png"))); // NOI18N
         btnUseAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUseAdd.setPreferredSize(new java.awt.Dimension(30, 30));
@@ -156,6 +240,8 @@ public class IntFrmUsuario extends javax.swing.JInternalFrame {
                 btnUseAddActionPerformed(evt);
             }
         });
+        jToolBar1.add(btnUseAdd);
+        jToolBar1.add(jSeparator1);
 
         btnUseRead.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/read.png"))); // NOI18N
         btnUseRead.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -165,14 +251,36 @@ public class IntFrmUsuario extends javax.swing.JInternalFrame {
                 btnUseReadActionPerformed(evt);
             }
         });
+        jToolBar1.add(btnUseRead);
+        jToolBar1.add(jSeparator2);
 
         btnUseUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/update.png"))); // NOI18N
         btnUseUpdate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUseUpdate.setPreferredSize(new java.awt.Dimension(30, 30));
+        btnUseUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUseUpdateActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnUseUpdate);
+        jToolBar1.add(jSeparator3);
 
         btnUseDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/Delete.png"))); // NOI18N
         btnUseDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUseDelete.setPreferredSize(new java.awt.Dimension(30, 30));
+        btnUseDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUseDeleteActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnUseDelete);
+        jToolBar1.add(jSeparator5);
+
+        btnProximo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/Next.png"))); // NOI18N
+        btnProximo.setFocusable(false);
+        btnProximo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnProximo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(btnProximo);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -194,18 +302,9 @@ public class IntFrmUsuario extends javax.swing.JInternalFrame {
                     .addComponent(txtUseId)
                     .addComponent(txtUseNome)
                     .addComponent(txtUseLogin)
-                    .addComponent(cmbUsePerfil, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(cmbUsePerfil, 0, 351, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(141, Short.MAX_VALUE)
-                .addComponent(btnUseAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnUseRead, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnUseUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnUseDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(135, 135, 135))
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -234,13 +333,8 @@ public class IntFrmUsuario extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(cmbUsePerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnUseAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUseRead, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUseUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUseDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
         );
 
         pack();
@@ -256,8 +350,20 @@ public class IntFrmUsuario extends javax.swing.JInternalFrame {
         adicionar();
     }//GEN-LAST:event_btnUseAddActionPerformed
 
+    private void btnUseUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUseUpdateActionPerformed
+        // Realiza alteração do usuário
+        alterar();
+    }//GEN-LAST:event_btnUseUpdateActionPerformed
+
+    private void btnUseDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUseDeleteActionPerformed
+        // Realiza remoção de usuário
+        remover();
+    }//GEN-LAST:event_btnUseDeleteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAnterior;
+    private javax.swing.JButton btnProximo;
     private javax.swing.JButton btnUseAdd;
     private javax.swing.JButton btnUseDelete;
     private javax.swing.JButton btnUseRead;
@@ -269,6 +375,12 @@ public class IntFrmUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JToolBar.Separator jSeparator1;
+    private javax.swing.JToolBar.Separator jSeparator2;
+    private javax.swing.JToolBar.Separator jSeparator3;
+    private javax.swing.JToolBar.Separator jSeparator4;
+    private javax.swing.JToolBar.Separator jSeparator5;
+    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTextField txtUseFone;
     private javax.swing.JTextField txtUseId;
     private javax.swing.JTextField txtUseLogin;

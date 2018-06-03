@@ -111,3 +111,4 @@ update tb_usuario set perfil='normal' where id_user=3;
 describe tb_usuario; -- descrição da tabela
 select * from tb_usuario; -- seleção de todos os usuários
 select * from tb_usuario where id_user=1; -- seleciona apanas o usuário com id 1
+DELETE FROM tb_usuario WHERE id_user=123; -- Deletar usuário de teste
