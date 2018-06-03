@@ -82,8 +82,7 @@ public class IntFrmCliente extends javax.swing.JInternalFrame {
 
     // Metodo para setar os campos com o conteudo da tabela
     public void setarCampos() {
-        int[] setar;
-        setar = tblClientes.getSelectedRows();
+        int[] setar = tblClientes.getSelectedRows();
         txtCliNome.setText(tblClientes.getModel().getValueAt(setar, 1).toString());
         txtCliEnd.setText(tblClientes.getModel().getValueAt(setar, 2).toString());
         txtCliFone.setText(tblClientes.getModel().getValueAt(setar, 3).toString());
