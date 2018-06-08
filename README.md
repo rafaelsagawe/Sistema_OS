@@ -7,10 +7,8 @@ O sistema será feito com base através do curso de Java com Banco de Dados do p
   
   O Netbeans foi instalado através do pacote .deb obtido do site do Netbeans, mas ele está apresentando um bug na versão 8.2 quanto ao JDK9, assim foi necessário reinstalá-lo usando a outra JDK8.
   
-  sudo add-apt-repository ppa:webupd8team/java
-  sudo apt-get install oracle-java8-installer
-
-  
+"sudo add-apt-repository ppa:webupd8team/java && sudo apt update && sudo apt-get install oracle-java8-installer"
+ 
 # MYSQL
 ## Criação do Usuário do sistema
 O mysql foi necessário ajustes iniciais 
