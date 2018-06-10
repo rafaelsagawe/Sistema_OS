@@ -87,6 +87,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mnCad.add(mnCadCli);
 
         mnCadOS.setText("OS");
+        mnCadOS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnCadOSActionPerformed(evt);
+            }
+        });
         mnCad.add(mnCadOS);
 
         mnCadUser.setText("Usuários");
@@ -211,6 +216,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
         cliente.setVisible(true);
         Desktop.add(cliente);
     }//GEN-LAST:event_mnCadCliActionPerformed
+
+    private void mnCadOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnCadOSActionPerformed
+        // Tela de Ordem de serviços
+        IntFrmOs os = new IntFrmOs();
+        os.setVisible(true);
+        Desktop.add(os);
+    }//GEN-LAST:event_mnCadOSActionPerformed
 
     /**
      * @param args the command line arguments
