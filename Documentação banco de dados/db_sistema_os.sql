@@ -112,3 +112,19 @@ describe tb_usuario; -- descrição da tabela
 select * from tb_usuario; -- seleção de todos os usuários
 select * from tb_usuario where id_user=1; -- seleciona apanas o usuário com id 1
 DELETE FROM tb_usuario WHERE id_user=123; -- Deletar usuário de teste
+
+-- Teste para a criação do formulario de clientes
+describe tb_cliente;
+select * from tb_cliente;
+select * from tb_cliente where nome_cliente like 'l%';
+
+-- Teste para a criação do formulario de OS
+select * from tb_cliente;
+select id_cliente, nome_cliente, fone_cliente from tb_cliente where nome_cliente like 'l%';
+-- Linha com uso de alias
+select id_cliente as ID, nome_cliente as Nome, fone_cliente as Telefone from tb_cliente where nome_cliente like 'l%';
+
+
+
+
+

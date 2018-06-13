@@ -5,19 +5,58 @@
  */
 package telas;
 
+import java.sql.*;
+import DAO.Conexao;
+import javax.swing.JOptionPane;
+import net.proteanit.sql.DbUtils;
+
 /**
  *
  * @author rafael
  */
 public class IntFrmOs extends javax.swing.JInternalFrame {
 
+    // Variaveis de acesso ao banco de dados
+    Connection conexao = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+
     /**
      * Creates new form IntFrmOs
      */
     public IntFrmOs() {
         initComponents();
+        conexao = Conexao.conector();
     }
 
+    
+    
+        // metodo de pesquisa inteligente
+    private void pesquisarCliente() {
+        String sql = "select id_cliente as ID, nome_cliente as Nome, fone_cliente as Telefone from tb_cliente where nome_cliente like ?";
+        try {
+            pst = conexao.prepareStatement(sql);
+            // Passando o conteudo da caixa de pesquisa para o ?
+            // Necessita da concatenação da instrução "%" para o sql 
+            pst.setString(1, txtCliBusca.getText() + "%");
+            rs = pst.executeQuery();
+            // Linha que usa o rs2xml adicionado na biblioteca
+            tblCliente.setModel(DbUtils.resultSetToTableModel(rs));
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+        public void setarCampos() {
+        int setar = tblCliente.getSelectedRow();
+        txtCliId.setText(tblCliente.getModel().getValueAt(setar, 0).toString());
+         // Desativa o botão adcionar cliente, assim evita que o cliente ja cadatrado sejá novamente cadastrado
+        //btnCliAdd.setEnabled(false);
+
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -98,7 +137,7 @@ public class IntFrmOs extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(rbtOrc)
                             .addComponent(rbtOS))
-                        .addGap(0, 59, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -135,7 +174,15 @@ public class IntFrmOs extends javax.swing.JInternalFrame {
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/View.png"))); // NOI18N
 
+        txtCliBusca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCliBuscaKeyReleased(evt);
+            }
+        });
+
         jLabel5.setText("ID");
+
+        txtCliId.setEditable(false);
 
         tblCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -148,6 +195,11 @@ public class IntFrmOs extends javax.swing.JInternalFrame {
                 "ID", "Nome", "Telefone"
             }
         ));
+        tblCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblClienteMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblCliente);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -249,12 +301,12 @@ public class IntFrmOs extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cboOSSitu, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cboOSSitu, 0, 215, Short.MAX_VALUE))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(13, 13, 13)
@@ -312,6 +364,16 @@ public class IntFrmOs extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtCliBuscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCliBuscaKeyReleased
+        // Metodo de pesquisa de clientes
+        pesquisarCliente();
+    }//GEN-LAST:event_txtCliBuscaKeyReleased
+
+    private void tblClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClienteMouseClicked
+        // Motodo para setar o campo ID
+        setarCampos();
+    }//GEN-LAST:event_tblClienteMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
