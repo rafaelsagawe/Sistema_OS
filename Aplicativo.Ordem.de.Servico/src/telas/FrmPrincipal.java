@@ -5,10 +5,15 @@
  */
 package telas;
 
+import DAO.Conexao;
 import java.text.DateFormat;
 import java.util.Date;
-import javax.security.auth.spi.LoginModule;
+//import javax.security.auth.spi.LoginModule;
 import javax.swing.JOptionPane;
+import java.sql.*;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -16,11 +21,14 @@ import javax.swing.JOptionPane;
  */
 public class FrmPrincipal extends javax.swing.JFrame {
 
+    Connection conexao = null;
+    
     /**
      * Creates new form FrmPrincipal
      */
     public FrmPrincipal() {
         initComponents();
+        conexao = Conexao.conector();
     }
 
     /**
@@ -43,6 +51,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         mnCadUser = new javax.swing.JMenuItem();
         mnRel = new javax.swing.JMenu();
         mnRelSer = new javax.swing.JMenuItem();
+        mnRelClientes = new javax.swing.JMenuItem();
         mnAjuda = new javax.swing.JMenu();
         mnAjudaSobre = new javax.swing.JMenuItem();
         mnOp = new javax.swing.JMenu();
@@ -115,6 +124,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
         mnRel.add(mnRelSer);
+
+        mnRelClientes.setText("Clientes");
+        mnRelClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnRelClientesActionPerformed(evt);
+            }
+        });
+        mnRel.add(mnRelClientes);
 
         MenuBar.add(mnRel);
 
@@ -224,6 +241,24 @@ public class FrmPrincipal extends javax.swing.JFrame {
         Desktop.add(os);
     }//GEN-LAST:event_mnCadOSActionPerformed
 
+    private void mnRelClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnRelClientesActionPerformed
+        // Relatorio de clientes
+        int confirma = JOptionPane.showConfirmDialog(null, "Visualizar relatorio", "Atenção",JOptionPane.YES_NO_OPTION);
+        if (confirma == JOptionPane.YES_OPTION) {
+            // imprimindo o relatorio de clientes
+            try {
+                // usando a class jasperprinter para impressao
+                JasperPrint imprimir = JasperFillManager.fillReport("/home/rafael/Sistema_OS/Aplicativo.Ordem.de.Servico/src/relatorios/clientes.jasper", null, conexao);
+                // linha exibi o relatorio atravers da classe jasperviewer
+                JasperViewer.viewReport(imprimir,false);
+                
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+            
+        }
+    }//GEN-LAST:event_mnRelClientesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -273,6 +308,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     public static javax.swing.JMenuItem mnCadUser;
     private javax.swing.JMenu mnOp;
     private javax.swing.JMenu mnRel;
+    private javax.swing.JMenuItem mnRelClientes;
     public static javax.swing.JMenuItem mnRelSer;
     private javax.swing.JMenuItem mnSair;
     // End of variables declaration//GEN-END:variables

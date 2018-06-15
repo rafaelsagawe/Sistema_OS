@@ -124,7 +124,11 @@ select id_cliente, nome_cliente, fone_cliente from tb_cliente where nome_cliente
 -- Linha com uso de alias
 select id_cliente as ID, nome_cliente as Nome, fone_cliente as Telefone from tb_cliente where nome_cliente like 'l%';
 
+describe tb_os;
 
+-- Linhas adicionando campos tipo e situação
+alter table tb_os add tipo varchar(15) not null after data_os;
+alter table tb_os add situacao varchar(20) not null after tipo;
 
-
+select * from tb_os where id_os = 2;
 
