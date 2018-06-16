@@ -132,3 +132,16 @@ alter table tb_os add situacao varchar(20) not null after tipo;
 
 select * from tb_os where id_os = 2;
 
+select * from tb_cliente;
+
+-- Criação do query do relatorio das OS
+-- A variavel osRel contem os dados da tabela tb_os
+-- A variavel cliRel contem os dados da tabela tb_cliente
+select
+osRel.id_os, data_os, tipo, situacao, equipamentos, valor,
+cliRel.nome_cliente, fone_cliente
+from tb_os as osRel
+inner join tb_cliente as cliRel
+on osRel.id_cliente=cliRel.id_cliente
+
+
