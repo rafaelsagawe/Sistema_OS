@@ -22,7 +22,7 @@ import net.sf.jasperreports.view.JasperViewer;
 public class FrmPrincipal extends javax.swing.JFrame {
 
     Connection conexao = null;
-    
+
     /**
      * Creates new form FrmPrincipal
      */
@@ -198,7 +198,21 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_mnCadUserActionPerformed
 
     private void mnRelSerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnRelSerActionPerformed
-        // TODO add your handling code here:
+        // Relatorio de clientes
+        int confirma = JOptionPane.showConfirmDialog(null, "Visualizar relatorio", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (confirma == JOptionPane.YES_OPTION) {
+            // imprimindo o relatorio de OS's
+            try {
+                // usando a class jasperprinter para impressao
+                JasperPrint imprimir = JasperFillManager.fillReport("/home/rafael/Sistema_OS/Aplicativo.Ordem.de.Servico/src/relatorios/os.jasper", null, conexao);
+                // linha exibi o relatorio atravers da classe jasperviewer
+                JasperViewer.viewReport(imprimir, false);
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+
+        }
     }//GEN-LAST:event_mnRelSerActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -210,7 +224,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     private void mnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnSairActionPerformed
         // Botão sair do menu exibi caixa sim ou não
-        int sair = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja sair", "Atenção",JOptionPane.YES_NO_OPTION);
+        int sair = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja sair", "Atenção", JOptionPane.YES_NO_OPTION);
         // Se jOptionPane for yes ele ira fechar o sistema
         if (sair == JOptionPane.YES_OPTION) {
             // chama tela login
@@ -218,12 +232,12 @@ public class FrmPrincipal extends javax.swing.JFrame {
             login.setVisible(true);
             this.dispose();
         }
-        
+
     }//GEN-LAST:event_mnSairActionPerformed
 
     private void mnAjudaSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnAjudaSobreActionPerformed
         // Chamar tela sobre
-        FrmSobre sobre = new  FrmSobre();
+        FrmSobre sobre = new FrmSobre();
         sobre.setVisible(true);
     }//GEN-LAST:event_mnAjudaSobreActionPerformed
 
@@ -243,19 +257,19 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     private void mnRelClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnRelClientesActionPerformed
         // Relatorio de clientes
-        int confirma = JOptionPane.showConfirmDialog(null, "Visualizar relatorio", "Atenção",JOptionPane.YES_NO_OPTION);
+        int confirma = JOptionPane.showConfirmDialog(null, "Visualizar relatorio", "Atenção", JOptionPane.YES_NO_OPTION);
         if (confirma == JOptionPane.YES_OPTION) {
             // imprimindo o relatorio de clientes
             try {
                 // usando a class jasperprinter para impressao
                 JasperPrint imprimir = JasperFillManager.fillReport("/home/rafael/Sistema_OS/Aplicativo.Ordem.de.Servico/src/relatorios/clientes.jasper", null, conexao);
                 // linha exibi o relatorio atravers da classe jasperviewer
-                JasperViewer.viewReport(imprimir,false);
-                
+                JasperViewer.viewReport(imprimir, false);
+
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e);
             }
-            
+
         }
     }//GEN-LAST:event_mnRelClientesActionPerformed
 
